@@ -1,6 +1,8 @@
 extends layout
 
 block content
+     head
+        link(rel='stylesheet', href='/css/reg.css')
     h1 Register
     if error != ''
         label(class='error') #{error}

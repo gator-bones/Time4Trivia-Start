@@ -1,9 +1,8 @@
 extends layout
 
 block content
-     head
-        link(rel='stylesheet', href='/css/reg.css')
     h1 Register
+    link(rel='stylesheet', href='/css/reg.css')
     if error != ''
         label(class='error') #{error}
     form(action='/u/register', method='post')

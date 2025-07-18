@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1 Register
+    link(rel='stylesheet', href='/css/reg.css')
     if error != ''
         label(class='error') #{error}
     form(action='/u/register', method='post')

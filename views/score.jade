@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .score-container
+    h1 Congratulations, #{user.username}!
+    p Your final score is:
+    h2 #{score}
+
+    a(href='/play') Play Again
+    a(href='/leaderboard') View Leaderboard
+    a(href='/') Return to Home

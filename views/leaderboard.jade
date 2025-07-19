@@ -1,14 +1,22 @@
+//- extends layout
+
+//- block content
+//-   h1 Time 4 Trivia Leaderboard!
+//-   p Implement your leaderboard HERE. The values below are static but should come from your database. Make it look nice!
+//-   ol
+//-     each val in leaders
+//-       li
+//-         div
+//-           label= val.name + ' : '
+//-           span= val.score
+
 extends layout
 
 block content
-  link(rel='stylesheet', href='/css/fnaf.css')
-
-  div.fnaf-leaderboard-container 
-    h1 Five Nights at Freddies (Time 4 Trivia) Leaderboard!
-    p Implement your leaderboard HERE. The values below are static but should come from your database. Make it look nice!
+  h1 🏆 Leaderboard
+  if scores.length
     ol
-      each val in leaders
-        li
-          div
-            label= val.name + ' : '
-            span= val.score
+      each score in scores
+        li #{score.username} - #{score.score} points
+  else
+    p No scores yet!

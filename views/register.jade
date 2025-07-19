@@ -1,27 +1,29 @@
 extends layout
 
 block content
-    h1 Register
-    link(rel='stylesheet', href='/css/reg.css')
-    if error != ''
-        label(class='error') #{error}
-    form(action='/u/register', method='post')
-        label Username:
-        input(type='text', name='username')
-        br 
-        br
-        label First Name: 
-        input(type='text', name='firstName')
-        br 
-        br
-        label Last Name:
-        input(type='text', name='lastName')
-        br
-        label Email:
-        input(type='text', name='email')
-        br
-        label Password:
-        input(type='password', name='password')
-        br
-        input(type='submit', value='register', id='register-button', class='image-submit-button')
+    div.cutesy-box
+        link(rel='stylesheet', href='/css/reg.css')
+        h1 Register
+        
+        if error != ''
+            label(class='error') #{error}
+        form(action='/u/register', method='post')
+            label Username:
+            input(type='text', name='username')
+            br 
+            br
+            label First Name: 
+            input(type='text', name='firstName')
+            br 
+            br
+            label Last Name:
+            input(type='text', name='lastName')
+            br
+            label Email:
+            input(type='text', name='email')
+            br
+            label Password:
+            input(type='password', name='password')
+            br
+            input(type='submit', value='register', id='register-button', class='image-submit-button')
         

@@ -1,10 +1,9 @@
-html {
-  background-image: url(../images/Paulfox2.png);
-}
-
 body {
-  padding: 50px;
+  padding: 0;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-attachment: fixed;
+    background-image: url(../images/Paulfox2.png);
 }
 
 a {
@@ -15,21 +14,58 @@ label {
   display: inline-block;
   font-weight: bold;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
-nav {
-  padding: 5px;
-  margin: 0px;
+input[type="text"],
+input[type="password"] {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
-nav a {
-  margin-right: 5px;
-  text-decoration: none;
+.cutesy-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 35px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 2px dashed #ffb6c1;
+  width: clamp(300px, 80%, 500px);
+  max-width: 90%;
+  text-align: left;
+  position: relative;
+  box-sizing: border-box;
 }
 
-.error {
-  color: red;
-  font-weight: bold;
+.cutesy-box h1 {
+  text-align: center;
+  color: #8a2be2;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.cutesy-box .error {
+  text-align: center;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.cutesy-box form br {
+  display: none;
+}
+
+.cutesy-box form label {
+    margin-bottom: 8px;
+    margin-top: 15px;
+    display: block;
+}
+
+.cutesy-box form input[type="text"],
+.cutesy-box form input[type="password"] {
+    width: calc(100% - 16px);
+    box-sizing: border-box;
+    margin-bottom: 15px;
 }
 
 .userContainer {
@@ -57,7 +93,8 @@ nav a {
   cursor: pointer;
   padding: 0;
   margin-top: 10px;
-  transition: opacity 0.2s ease-in-out;
+  margin-left: 115px;
+  transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
   background-color: transparent;
 }
 

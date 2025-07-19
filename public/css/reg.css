@@ -1,4 +1,4 @@
-html{
+html {
   background-image: url(../images/Paulfox2.png);
 }
 
@@ -14,7 +14,7 @@ a {
 label {
   display: inline-block;
   font-weight: bold;
-  margin-right:5px;
+  margin-right: 5px;
 }
 
 nav {
@@ -28,18 +28,44 @@ nav a {
 }
 
 .error {
-  color:red;
-  font-weight: bold;;
+  color: red;
+  font-weight: bold;
 }
 
-.userContainer{
+.userContainer {
   display: flex;
   gap: 10px;
 }
 
 .userBox {
-  border:solid 1px black;
+  border: solid 1px black;
   border-radius: 5px;
   padding: 5px;
   margin-top: 10px;
+}
+
+.image-submit-button {
+  display: inline-block;
+  width: 180px;
+  height: 160px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 10px;
+  transition: opacity 0.2s ease-in-out;
+  background-color: transparent;
+}
+
+#register-button {
+  background-image: url('../images/buttons/register_btn.png');
+}
+
+.image-submit-button:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
 }

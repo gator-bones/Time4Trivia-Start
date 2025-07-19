@@ -3,6 +3,7 @@ body {
   font: 14px 'Comic Sans MS', 'Arial', sans-serif;
   margin: 0;
   background-attachment: fixed;
+  background-image: url(../images/early2000spaulfox.png);
 }
 
 a {

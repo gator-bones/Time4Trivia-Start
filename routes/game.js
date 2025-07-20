@@ -20,16 +20,6 @@ router.get('/play', async function (req, res) {
 });
 
 
-router.get('/leaderboard', async function (req, res) {
-  try {
-    const scores = await db.getTopScores();
-    res.render('leaderboard', { scores });
-  } catch (err) {
-    console.error('Error loading leaderboard:', err);
-    res.status(500).send('Error loading leaderboard');
-  }
-});
-
 router.post('/submit-score', express.json(), async function (req, res) {
   const { username, score } = req.body;
 

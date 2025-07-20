@@ -14,9 +14,10 @@ extends layout
 
 block content
   h1 🏆 Leaderboard
-  if scores.length
+  if leaders.length
     ol
-      each score in scores
-        li #{score.username} - #{score.score} points
+      each leader in leaders
+        li #{leader.username} - #{leader.score} points
   else
-    p No scores yet!
+    p No scores yet.
+

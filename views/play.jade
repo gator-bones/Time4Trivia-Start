@@ -1,6 +1,22 @@
 extends layout
 
 block content
-    h1 Play Time 4 Trivia!
-    p Implement your trivia game here. User should be able to see questions, select answers and get their score when done. Scores should be saved for the leaderboard.
-    button Go
+  h1 Play Time 4 Trivia!
+  p Answer the following trivia questions. Click submit to see your score.
+
+  form#trivia-form
+    each q, index in questions
+      .question-block
+        h3 #{index + 1}. #{q.question}
+        if q.options
+          each opt in q.options
+            label
+              input(type="radio", name=`q${index}`, value=opt required)
+              | #{opt}
+        else
+          p(style="color: red") No options available.
+
+    button(type="submit") Submit
+
+  hr
+  div#result

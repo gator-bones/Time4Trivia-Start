@@ -9,7 +9,7 @@ html
       a(id='leaderboard-button', class='nav-image-button', href='/leaderboard')
       if user
         if isAdmin && isAdmin == "true"
-          a(class='', href='/a/users') Users
+          a(id='user-button', class='nav-image-button', href='/a/users')
         a(id='play-button', class='nav-image-button', href='/g/play')
         a(id='profile-button', class='nav-image-button', href='/u/profile')
         a(id='logout-button', class='nav-image-button', href='/u/logout')

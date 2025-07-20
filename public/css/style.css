@@ -83,6 +83,10 @@ nav {
   background-image: url('../images/nav/login_nav.png');
 }
 
+#user-button {
+  background-image: url('../images/nav/users_nav.png');
+}
+
 .nav-image-button:hover {
   opacity: 0.8;
   transform: scale(1.1);

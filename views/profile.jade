@@ -1,20 +1,24 @@
 extends layout
 
 block content
-  h1 Profile
-  label Username: #{user.username}
-  br
-  h2 Change your password
-  if error != ''
-    label(class='error') #{error}
-  form(action='profile', method='post')
-    label Current Password:
-    input(type='password', name='currentPassword')
-    <br>
-    label New Password:
-    input(type='password', name='newPassword')
-    <br>
-    label Confirm Password:
-    input(type='password', name='confirmPassword')
-    <br>
-    input(type='submit', value='Update Password')
+  link(rel='stylesheet', href='/css/prof.css')
+
+
+  div.profile-internet-box
+    h1 Profile
+    label Username: #{user.username}
+    br
+    h2 Change your password
+    if error != ''
+      label(class='error') #{error}
+    form(action='profile', method='post')
+      label Current Password:
+      input(type='password', name='currentPassword')
+      <br> 
+      label New Password:
+      input(type='password', name='newPassword')
+      <br> 
+      label Confirm Password:
+      input(type='password', name='confirmPassword')
+      <br> 
+      input(type='submit', value='Update Password', id='update-password-button', class='image-submit-button')

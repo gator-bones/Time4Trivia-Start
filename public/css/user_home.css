@@ -1,0 +1,91 @@
+html {
+  background-color: #ECF0F1;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+body {
+  color: #2C3E50;
+}
+
+h1 {
+  color: #2980B9;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+p {
+  color: #7F8C8D;
+  text-align: center;
+}
+
+a {
+  color: #E74C3C;
+  text-decoration: underline;
+}
+
+.user-home-cutesy-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 18px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 2px dashed #FFD1DC;
+  width: clamp(300px, 80%, 600px);
+  max-width: 90%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.user-home-cutesy-box .highlight-user {
+    color: #8e44ad;
+    font-weight: bold;
+    text-shadow: 1px 1px rgba(255,255,255,0.5);
+}
+
+.advertisement {
+  background-color: #FFFACD;
+  border: 1px solid #FFD700;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 30px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.advertisement h3 {
+  color: #D35400;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.advertisement p {
+  font-size: 0.95em;
+  color: #34495E;
+  margin-bottom: 15px;
+}
+
+.advertisement .ad-image {
+  max-width: 25%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+}
+
+.advertisement .ad-link {
+  display: inline-block;
+  background-color: #2ECC71;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.advertisement .ad-link:hover {
+  background-color: #27AE60;
+}

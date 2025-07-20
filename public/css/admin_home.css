@@ -1,0 +1,17 @@
+body {
+    background-image: url('../images/guam1.png'); 
+}
+
+h1 {
+  color: #F1C40F;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+p {
+  color: #BDC3C7;
+}
+
+a {
+  color: #3498DB;
+  text-decoration: underline;
+}

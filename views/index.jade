@@ -1,11 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
   if user
-    p You are logged in as: #{user.username}
-    if(isAdmin)
-      p You are an Admin!
+    if isAdmin && isAdmin == "true"
+      link(rel='stylesheet', href='/css/admin_home.css')
+    else
+      link(rel='stylesheet', href='/css/user_home.css')
+      div.user-home-cutesy-box
+        h1= title
+        p Welcome, #[span.highlight-user #{user.username}]!
+        p Explore our site and have fun!
+        div.advertisement
+          h3 Check Out This Awesome Product!
+          p Get 20% off with code "GUAMHATE"!
+          img(src='/images/wcanyoulockthefoxin.png', alt='Advertisement' class='ad-image')
+          a(href='#' class='ad-link') Click Here!
   else
+    h1= title
+    p Welcome to #{title}
     p Please #[a(href="/u/login") login] to play

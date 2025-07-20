@@ -1,6 +1,23 @@
 body {
-  padding: 50px;
+  padding: 0;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-attachment: fixed;
+  background-image: url(../images/paulfox.png);
+}
+
+.main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 a {
@@ -10,36 +27,92 @@ a {
 label {
   display: inline-block;
   font-weight: bold;
-  margin-right:5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 nav {
   padding: 5px;
   margin: 0px;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.nav-image-button {
+  display: inline-block;
+  width: 180px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 5px;
+  transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
+  color: transparent;
+  text-decoration: none;
+  padding: 0;
+}
+
+#home-button {
+  background-image: url('../images/nav/home_nav.png');
+}
+
+#leaderboard-button {
+  background-image: url('../images/nav/leaderboard_nav.png');
+}
+
+#play-button {
+  background-image: url('../images/nav/play_nav.png');
+}
+
+#profile-button {
+  background-image: url('../images/nav/profile_nav.png');
+}
+
+#logout-button {
+  background-image: url('../images/nav/logout_nav.png');
+}
+
+#login-btn {
+  background-image: url('../images/nav/login_nav.png');
+}
+
+.nav-image-button:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
 }
 
 nav a {
   margin-right: 5px;
   text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+nav a.active {
+  background-color: #007bff;
 }
 
 .error {
-  color:red;
-  font-weight: bold;;
+  color: red;
+  font-weight: bold;
 }
 
-.userContainer{
+.userContainer {
   display: flex;
   gap: 10px;
 }
 
 .userBox {
-  border:solid 1px black;
+  border: solid 1px black;
   border-radius: 5px;
   padding: 5px;
   margin-top: 10px;
-}
-
-html{
-  background-image: url(../images/paulfox.png);
 }

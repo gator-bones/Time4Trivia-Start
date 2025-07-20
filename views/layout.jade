@@ -5,14 +5,15 @@ html
     link(rel='stylesheet', href='/css/style.css')
   body
     nav
-      a(class='active', href='/') Home
-      a(class='active', href='/leaderboard') Leaderboard
+      a(id='home-button', class='nav-image-button', href='/')
+      a(id='leaderboard-button', class='nav-image-button', href='/leaderboard')
       if user
         if isAdmin && isAdmin == "true"
           a(class='', href='/a/users') Users
-        a(class='active', href='/g/play') Play
-        a(class='', href='/u/profile') Profile
-        a(class='', href='/u/logout') Logout #{user.username}
+        a(id='play-button', class='nav-image-button', href='/g/play')
+        a(id='profile-button', class='nav-image-button', href='/u/profile')
+        a(id='logout-button', class='nav-image-button', href='/u/logout')
       else
-        a(class='', href='/u/login') Login
+        a(id='login-btn', class='nav-image-button', href='/u/login')
+  div.main-content-wrapper
     block content

@@ -1,6 +1,33 @@
+//- extends layout
+
+//- block content
+//-   h1 Play Time 4 Trivia!
+//-   p Answer the following trivia questions. Click submit to see your score.
+
+//-   form#trivia-form
+//-     each q, index in questions
+//-       .question-block
+//-         h3 #{index + 1}. #{q.question}
+//-         if q.options
+//-           each opt in q.options
+//-             label
+//-               input(type="radio", name=`q${index}`, value=opt required)
+//-               | #{opt}
+//-         else
+//-           p(style="color: red") No options available.
+
+//-     button(type="submit") Submit
+
+//-   hr
+//-   div#result
+
 extends layout
 
 block content
+  //- Hidden elements for data passing
+  div#questions-data(style="display: none" data-questions=JSON.stringify(questions))
+  div#user-data(style="display: none" data-username=user ? user.username : '')
+
   h1 Play Time 4 Trivia!
   p Answer the following trivia questions. Click submit to see your score.
 
@@ -11,7 +38,7 @@ block content
         if q.options
           each opt in q.options
             label
-              input(type="radio", name=`q${index}`, value=opt required)
+              input(type="radio", name=`q${index}`, value=opt, required)
               | #{opt}
         else
           p(style="color: red") No options available.
@@ -20,3 +47,7 @@ block content
 
   hr
   div#result
+
+  script(src="/js/play.js" defer)
+
+  

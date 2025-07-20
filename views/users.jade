@@ -16,8 +16,18 @@ block content
             span
               b Role: &nbsp;
             span.user-detail #{user.roles[0]}
+          // NEW: Display user status (Enabled/Disabled)
+          div
+            b Status: &nbsp;
+            span.user-detail #{user.isEnabled ? 'Enabled' : 'Disabled'}
           div.user-actions
             a(href='/a/delete/' + user.userId, class='action-button remove-button') remove
+            // NEW: Conditional Enable/Disable button
+            if user.isEnabled
+                a(href='/a/disable/' + user.userId, class='action-button disable-button') Disable
+            else
+                a(href='/a/enable/' + user.userId, class='action-button enable-button') Enable
+            // Existing Promote/Demote buttons
             if user.roles[0] == "user"
               a(href='/a/promote/' + user.userId, class='action-button promote-button') promote
             else

@@ -39,4 +39,20 @@ router.get('/demote/:userId', async function (req, res, next) {
   res.redirect('/a/users');
 });
 
+router.get('/enable/:userId', async function (req, res, next) {
+  let userId = req.params.userId;
+
+  await userController.enableUser(userId);
+
+  res.redirect('/a/users');
+});
+
+router.get('/disable/:userId', async function (req, res, next) {
+  let userId = req.params.userId;
+
+  await userController.disableUser(userId);
+
+  res.redirect('/a/users');
+});
+
 module.exports = router;

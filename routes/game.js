@@ -4,7 +4,10 @@ const db = require('../data/mongoDAL.js');
 
 router.get('/play', async function (req, res) {
   try {
-    const questions = await db.getAllQuestions();
+    const allQuestions = await db.getAllQuestions();
+    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+    const questions = shuffled.slice(0, 5);
+
     res.render('play', {
       user: req.session?.user || null,
       isAdmin: req.cookies?.isAdmin || false,
@@ -15,6 +18,7 @@ router.get('/play', async function (req, res) {
     res.status(500).send('Error loading trivia game');
   }
 });
+
 
 router.get('/leaderboard', async function (req, res) {
   try {
@@ -43,7 +47,7 @@ router.post('/submit-score', express.json(), async function (req, res) {
 });
 
 router.get('/score', function (req, res) {
-  req.session.user = { username: ''}
+  req.session.user = { username: '' }
   const score = parseInt(req.query.score) || 0;
   const user = req.session?.user;
 

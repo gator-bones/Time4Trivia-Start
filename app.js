@@ -19,6 +19,7 @@ var app = express();
 
 app.use(session(sessionConfig));
 app.use(express.json());
+app.use(gameRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

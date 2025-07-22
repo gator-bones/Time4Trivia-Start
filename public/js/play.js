@@ -27,12 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     score++;
                 }
             });
+
+            console.log(score)
             try {
                 const response = await fetch('/submit-score', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({ score })
                 });
 

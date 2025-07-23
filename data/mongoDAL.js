@@ -16,7 +16,7 @@ async function withDB(callback) {
 
 async function addUserQuestion(questionData) {
   return withDB(async (db) => {
-    const collection = db.collection('Questions');
+    const collection = db.collection('questions');
     return await collection.insertOne(questionData);
   });
 }

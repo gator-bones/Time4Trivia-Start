@@ -7,6 +7,7 @@ html {
   background-attachment: fixed;
 }
 
+
 body {
   color: #2C3E50;
   /* Crucial: Redefine the flex properties that exist in style.css's body */

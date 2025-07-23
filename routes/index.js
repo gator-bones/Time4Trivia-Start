@@ -1,40 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Time 4 Trivia', user: req.session.user, isAdmin: req.cookies.isAdmin });
-// });
-
-
-
-// router.get('/leaderboard', async function (req, res) {
-//   try {
-//     const scores = await db.getTopScores();
-//     res.render('leaderboard', { scores });
-//   } catch (err) {
-//     console.error('Error loading leaderboard:', err);
-//     res.status(500).send('Error loading leaderboard');
-//   }
-// });
-
-// router.get('/leaderboard', function(req, res, next) {
-//   // TODO: Get actual leader data from the MONGO database!
-//   let leaders = [
-//     {
-//       name: 'Sue', score: 100
-//     },
-//     {
-//       name: 'Don', score: 99
-//     },
-//     {
-//       name: 'Ralph', score: 3
-//     }
-//   ];
-//   res.render('leaderboard', { title: 'Time 4 Trivia', user: req.session.user, isAdmin: req.cookies.isAdmin, leaders: leaders });
-// });
-
-// module.exports = router;
-
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2/promise');
@@ -75,6 +38,49 @@ router.get('/leaderboard', async function (req, res) {
   } catch (err) {
     console.error('Error loading leaderboard:', err);
     res.status(500).send('Error loading leaderboard');
+  }
+});
+
+router.get('/question', (req, res) => {
+    console.log('🧠 /q/question route hit!');
+  res.render('question', {
+    title: 'Question Page',
+    user: req.session.user,
+    isAdmin: req.cookies?.isAdmin || false
+  });
+});
+
+router.get('/submit-question', (req, res) => {
+  res.render('submit-question');
+});
+
+// POST: process form
+router.post('/submit-question', async (req, res) => {
+  const { question, options, answer } = req.body;
+
+  try {
+    // Ensure options is an array
+    const formattedOptions = Array.isArray(options) ? options : [options];
+
+    if (!formattedOptions.includes(answer)) {
+      return res.render('submit-question', {
+        error: 'Answer must match one of the provided options.',
+      });
+    }
+
+    const questionDoc = {
+      question,
+      options: formattedOptions,
+      answer,
+      submittedBy: req.session?.user?.username || 'anonymous',
+      submittedAt: new Date()
+    };
+
+    await db.addUserQuestion(questionDoc);
+    res.render('submit-question', { success: true });
+  } catch (err) {
+    console.error(err);
+    res.render('submit-question', { error: 'Failed to submit question.' });
   }
 });
 

@@ -14,6 +14,13 @@ async function withDB(callback) {
   }
 }
 
+async function addUserQuestion(questionData) {
+  return withDB(async (db) => {
+    const collection = db.collection('Questions');
+    return await collection.insertOne(questionData);
+  });
+}
+
 module.exports = {
   getAllQuestions: async () =>
     withDB(db => db.collection('questions').find().toArray()),
@@ -36,4 +43,5 @@ module.exports = {
       });
       return result.insertedId;
     }),
+     addUserQuestion,
 };

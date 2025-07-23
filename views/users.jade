@@ -1,20 +1,34 @@
 extends layout
 
 block content
-  h1 Users
-  div(class="userContainer")
-    each user in users 
-      div(class='userBox')
-        h2 Username: #{user.username}
-        div Password: #{user.password}
+  link(rel='stylesheet', href='/css/users.css')
+
+  div.users-page-cutesy-wrapper
+    h1 Users
+    p Welcome to the User Management Panel!
+
+    div(class="userContainer")
+      each user in users
+        div(class='userBox')
+          h2 Username: #{user.username}
+          div Password: #[span.user-detail #{user.password}]
           div
             span
               b Role: &nbsp;
-            span #{user.roles[0]}
+            span.user-detail #{user.roles[0]}
+          // NEW: Display user status (Enabled/Disabled)
           div
-            a(href='/a/delete/' + user.userId) remove
-          div
-            if user.roles[0] == "user"
-              a(href='/a/promote/' + user.userId) promote
+            b Status: &nbsp;
+            span.user-detail #{user.isEnabled ? 'Enabled' : 'Disabled'}
+          div.user-actions
+            a(href='/a/delete/' + user.userId, class='action-button remove-button') remove
+            // NEW: Conditional Enable/Disable button
+            if user.isEnabled
+                a(href='/a/disable/' + user.userId, class='action-button disable-button') Disable
             else
-              a(href='/a/demote/' + user.userId) demote          
+                a(href='/a/enable/' + user.userId, class='action-button enable-button') Enable
+            // Existing Promote/Demote buttons
+            if user.roles[0] == "user"
+              a(href='/a/promote/' + user.userId, class='action-button promote-button') promote
+            else
+              a(href='/a/demote/' + user.userId, class='action-button demote-button') demote

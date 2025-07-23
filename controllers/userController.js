@@ -70,19 +70,19 @@ exports.updateUserPassword = async function (userId, currentPassword, newPasswor
  * @returns The result of the login attempt
  */
 exports.login = async function (username, password) {
-    // console.log(`Logging in with username ${username}`);
-
     // Get User by Username
     let user = await sqlDAL.getUserByUsername(username);
 
     if (!user) return new Result(STATUS_CODES.failure, 'Invalid Login.');
 
-    let passwordsMatch = await bcrypt.compare(password, user.password); // does the given password match the user's hashed password?
+    // Check if account is enabled
+    if (!user.isEnabled) {
+        return new Result(STATUS_CODES.failure, 'Account is disabled.');
+    }
+
+    let passwordsMatch = await bcrypt.compare(password, user.password);
 
     if (passwordsMatch) {
-        // console.log('Successful login for ' + username);
-        // console.log(user);
-
         return new Result(STATUS_CODES.success, 'Valid Login.', user);
     } else {
         return new Result(STATUS_CODES.failure, 'Invalid Login.');
@@ -123,4 +123,12 @@ exports.promoteUser = function (userId) {
  */
 exports.demoteUser = function (userId) {
     return sqlDAL.demoteUser(userId);
+}
+
+exports.enableUser = function (userId) {
+    return sqlDAL.enableUser(userId);
+}
+
+exports.disableUser = function (userId) {
+    return sqlDAL.disableUser(userId);
 }

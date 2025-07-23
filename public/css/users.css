@@ -1,0 +1,156 @@
+html {
+  background-image: url('http://googleusercontent.com/file_content/0');
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-color: #f0f8ff;
+}
+
+body {
+  color: #2C3E50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  color: #8A2BE2;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+p {
+  color: #555;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+a {
+  color: #E74C3C;
+  text-decoration: underline;
+}
+
+.users-page-cutesy-wrapper {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 3px dashed #FF69B4;
+  width: clamp(320px, 95%, 1000px);
+  max-width: 95%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.userContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.userBox {
+  background-color: rgba(255, 240, 245, 0.95);
+  border: 2px solid #FFC0CB;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  flex: 1 1 calc(33.333% - 40px);
+  min-width: 250px;
+  max-width: 350px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.userBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.userBox h2 {
+  color: #4B0082;
+  font-size: 1.4em;
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  text-shadow: 1px 1px #FFF;
+}
+
+.userBox div {
+  margin-bottom: 8px;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.userBox label, .userBox b {
+  color: #6A5ACD;
+  font-weight: bold;
+}
+
+.userBox .user-detail {
+  font-weight: normal;
+  color: #000;
+}
+
+.user-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.action-button {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9em;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.remove-button {
+  background-color: #FF6347;
+  color: white;
+  border: 1px solid #FF4500;
+}
+
+.remove-button:hover {
+  background-color: #FF4500;
+  transform: translateY(-2px);
+}
+
+.promote-button {
+  background-color: #7FFF00;
+  color: #333;
+  border: 1px solid #6B8E23;
+}
+
+.promote-button:hover {
+  background-color: #6B8E23;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.demote-button {
+  background-color: #FFA07A;
+  color: #333;
+  border: 1px solid #FF7F50;
+}
+
+.demote-button:hover {
+  background-color: #FF7F50;
+  color: white;
+  transform: translateY(-2px);
+}

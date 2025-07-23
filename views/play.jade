@@ -38,6 +38,7 @@ block content
         if q.options
           each opt in q.options
             label
+
               input(type="radio", name=`q${index}`, value=opt, required)
               | #{opt}
         else
@@ -47,7 +48,4 @@ block content
 
   hr
   div#result
-
   script(src="/js/play.js" defer)
-
-  

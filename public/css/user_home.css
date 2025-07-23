@@ -1,11 +1,21 @@
+/* user_home.css */
+
 html {
   background-color: #ECF0F1;
+  background-image: url('../images/user_subtle_pattern.png');
   background-repeat: repeat;
   background-attachment: fixed;
 }
 
 body {
   color: #2C3E50;
+  /* Crucial: Redefine the flex properties that exist in style.css's body */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0; /* Ensure no extra padding from previous body rules */
 }
 
 h1 {

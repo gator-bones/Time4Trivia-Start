@@ -4,10 +4,11 @@ const Result = require('../models/result').Result;
 const STATUS_CODES = require('../models/statusCodes').STATUS_CODES;
 
 const mysql = require('mysql2/promise');
+
 const sqlConfig = {
     host: 'localhost',
     user: 'root',
-    password: 'Vampirebites21',
+    password: '306879',
     database: 'Time4Trivia',
     multipleStatements: true
 };

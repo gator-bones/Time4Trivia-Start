@@ -2,57 +2,81 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
+const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
-// All Admin Routes should only be accessble to logged in Admins!
+router.use(isAuthenticated, isAdmin);
 
 router.get('/users', async function (req, res, next) {
-  let role = req.params.role;
-  let users = await userController.getUsers(role);
+    let users = await userController.getUsers();
 
-  // remote the admin username
-  users = users.filter((u) => u.username != "admin");
+    users = users.filter((u) => u.userId !== req.session.user.userId);
 
-  res.render('users', { title: 'Time 4 Trivia', user: req.session.user, isAdmin: req.cookies.isAdmin, users: users });
+    res.render('users', {
+        title: 'User Management',
+        user: req.session.user,
+        isAdmin: true,
+        users: users
+    });
 });
 
 router.get('/delete/:userId', async function (req, res, next) {
-  let userId = req.params.userId;
+    let userId = parseInt(req.params.userId, 10);
 
-  await userController.deleteUserById(userId);
+    const DEFAULT_ADMIN_ID = 1;
+    if (userId === req.session.user.userId || userId === DEFAULT_ADMIN_ID) {
+        return res.status(403).send("Access Denied: You cannot delete this admin account.");
+    }
 
-  res.redirect('/a/users');
+    await userController.deleteUserById(userId);
+    res.redirect('/a/users');
 });
 
 router.get('/promote/:userId', async function (req, res, next) {
-  let userId = req.params.userId;
+    let userId = parseInt(req.params.userId, 10);
 
-  await userController.promoteUser(userId);
+    const DEFAULT_ADMIN_ID = 1;
+    if (userId === req.session.user.userId || userId === DEFAULT_ADMIN_ID) {
+        return res.status(403).send("Access Denied: Cannot change role of this admin account.");
+    }
 
-  res.redirect('/a/users');
+    await userController.promoteUser(userId);
+    res.redirect('/a/users');
 });
 
 router.get('/demote/:userId', async function (req, res, next) {
-  let userId = req.params.userId;
+    let userId = parseInt(req.params.userId, 10);
 
-  await userController.demoteUser(userId);
+    const DEFAULT_ADMIN_ID = 1;
+    if (userId === req.session.user.userId || userId === DEFAULT_ADMIN_ID) {
+        return res.status(403).send("Access Denied: Cannot change role of this admin account.");
+    }
 
-  res.redirect('/a/users');
+    await userController.demoteUser(userId);
+    res.redirect('/a/users');
 });
 
 router.get('/enable/:userId', async function (req, res, next) {
-  let userId = req.params.userId;
+    let userId = parseInt(req.params.userId, 10);
 
-  await userController.enableUser(userId);
+    const DEFAULT_ADMIN_ID = 1;
+    if (userId === req.session.user.userId || userId === DEFAULT_ADMIN_ID) {
+        return res.status(403).send("Access Denied: Cannot change status of this admin account.");
+    }
 
-  res.redirect('/a/users');
+    await userController.enableUser(userId);
+    res.redirect('/a/users');
 });
 
 router.get('/disable/:userId', async function (req, res, next) {
-  let userId = req.params.userId;
+    let userId = parseInt(req.params.userId, 10);
 
-  await userController.disableUser(userId);
+    const DEFAULT_ADMIN_ID = 1;
+    if (userId === req.session.user.userId || userId === DEFAULT_ADMIN_ID) {
+        return res.status(403).send("Access Denied: Cannot change status of this admin account.");
+    }
 
-  res.redirect('/a/users');
+    await userController.disableUser(userId);
+    res.redirect('/a/users');
 });
 
 module.exports = router;

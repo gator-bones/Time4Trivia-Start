@@ -1,51 +1,29 @@
-//- extends layout
-
-//- block content
-//-   h1 Play Time 4 Trivia!
-//-   p Answer the following trivia questions. Click submit to see your score.
-
-//-   form#trivia-form
-//-     each q, index in questions
-//-       .question-block
-//-         h3 #{index + 1}. #{q.question}
-//-         if q.options
-//-           each opt in q.options
-//-             label
-//-               input(type="radio", name=`q${index}`, value=opt required)
-//-               | #{opt}
-//-         else
-//-           p(style="color: red") No options available.
-
-//-     button(type="submit") Submit
-
-//-   hr
-//-   div#result
-
 extends layout
 
 block content
-  //- Hidden elements for data passing
-  div#questions-data(style="display: none" data-questions=JSON.stringify(questions))
-  div#user-data(style="display: none" data-username=user ? user.username : '')
+  link(rel='stylesheet', href='/css/play.css')
 
-  //- h1 Play Time 4 Trivia!
-  //- p Answer the following trivia questions. Click submit to see your score.
+  div.quiz-page-cutesy-wrapper
+    h1 Play Time 4 Trivia!
+    p Answer the following trivia questions. Click submit to see your score.
 
-  form#trivia-form
-    each q, index in questions
-      .question-block
-        h3 #{index + 1}. #{q.question}
-        if q.options
-          each opt in q.options
-            label
+    div#questions-data(style="display: none" data-questions=JSON.stringify(questions))
+    div#user-data(style="display: none" data-username=user ? user.username : '')
 
-              input(type="radio", name=`q${index}`, value=opt, required)
-              | #{opt}
-        else
-          p(style="color: red") No options available.
+    form#trivia-form
+      each q, index in questions
+        .question-block
+          h3 #{index + 1}. #{q.question}
+          if q.options
+            each opt in q.options
+              label
+                input(type="radio", name=`q${index}`, value=opt, required)
+                | #{opt}
+          else
+            p(style="color: red") No options available.
 
-    button(type="submit") Submit
+      button(type="submit" class="submit-quiz-button") Submit
 
-  hr
-  div#result
-  script(src="/js/play.js" defer)
+    hr
+    div#result
+    script(src="/js/play.js" defer)

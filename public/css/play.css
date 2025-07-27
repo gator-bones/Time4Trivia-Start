@@ -1,0 +1,116 @@
+html {
+  background-color: #f8f8ff;
+  background-image: url('../images/cutesy_play_pattern.png');
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+body {
+  color: #333;
+  font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.quiz-page-cutesy-wrapper {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border: 2px solid #FFC0CB;
+  width: clamp(320px, 90%, 800px);
+  max-width: 95%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.quiz-page-cutesy-wrapper h1 {
+  color: #8A2BE2;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 2.2em;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.quiz-page-cutesy-wrapper p {
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.question-block {
+  background-color: #F8F8FF;
+  border: 1px solid #E0BBE4;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.question-block h3 {
+  color: #4B0082;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.question-block label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #333;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.question-block label:hover {
+  background-color: #f0f0f0;
+}
+
+.question-block input[type="radio"] {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.submit-quiz-button {
+  display: block;
+  margin: 30px auto 20px auto;
+  padding: 15px 30px;
+  background-color: #7B68EE;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-quiz-button:hover {
+  background-color: #6A5ACD;
+  transform: translateY(-2px);
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed #ddd;
+  margin: 30px 0;
+}
+
+#result {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #28a745;
+  padding: 15px;
+  border: 2px dashed #90EE90;
+  background-color: #F0FFF0;
+  border-radius: 10px;
+  margin-top: 20px;
+}

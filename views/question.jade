@@ -16,9 +16,10 @@ block content
       input#question.form-control(type='text', name='question', required)
 
     div.form-group
-      label Options:
-      each val, index in [1, 2, 3, 4]
-        input.form-control(type='text', name='options', placeholder='Option ' + index, required)
+      label(for='options') Options:
+      each val, index in [0, 1, 2, 3]
+        input.form-control(type='text', name='options', placeholder='Option ' + (index + 1), required)
+        //- input.form-control(type='text', name='options', placeholder='Option ' + index, required)
 
     div.form-group
       label(for='answer') Correct Answer:

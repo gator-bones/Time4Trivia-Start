@@ -66,7 +66,7 @@ router.get('/submit-question', (req, res) => {
 router.post('/submit-question', async (req, res) => {
   const { question, options, answer } = req.body;
 
-  // console.log(req.body);
+  console.log(req.body);
 
   try {
     const formattedOptions = Array.isArray(options) ? options : [options];

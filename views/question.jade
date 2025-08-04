@@ -1,27 +1,30 @@
 extends layout
 
 block content
-  h1 Submit a New Trivia Question
-  p Manage Questions
-  p You are now viewing the question page.
+  link(rel='stylesheet', href='/css/question.css')
 
-  if success
-    p.alert.alert-success Question submitted successfully!
-  if error
-    p.alert.alert-danger= error
-
-  form(method='POST', action='/submit-question')
-    div.form-group
-      label(for='question') Question:
-      input#question.form-control(type='text', name='question', required)
-
-    div.form-group
-      label Options:
-      each val, index in [1, 2, 3, 4]
-        input.form-control(type='text', name='options', placeholder='Option ' + index, required)
-
-    div.form-group
-      label(for='answer') Correct Answer:
-      input#answer.form-control(type='text', name='answer', placeholder='Must match one of the options', required)
-
-    button.btn.btn-primary(type='submit') Submit Question
+  div.question-page-cutesy-wrapper
+    h1 Submit a New Trivia Question
+    p Manage Questions
+    p You are now viewing the question page.
+  
+    if success
+      p.alert.alert-success Question submitted successfully!
+    if error
+      p.alert.alert-danger= error
+  
+    form(method='POST', action='/submit-question')
+      div.form-group
+        label(for='question') Question:
+        input#question.form-control(type='text', name='question', required)
+  
+      div.form-group
+        label Options:
+        each val, index in [1, 2, 3, 4]
+          input.form-control(type='text', name='options', placeholder='Option ' + index, required)
+  
+      div.form-group
+        label(for='answer') Correct Answer:
+        input#answer.form-control(type='text', name='answer', placeholder='Must match one of the options', required)
+  
+      button.btn.btn-primary(type='submit') Submit Question

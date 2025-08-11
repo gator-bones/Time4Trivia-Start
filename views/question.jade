@@ -1,29 +1,41 @@
+
 extends layout
 
 block content
-  link(rel='stylesheet', href='/css/question.css')
 
-  div.question-page-cutesy-wrapper
-    h1 Submit a New Trivia Question
-    p Please provide 4 options.
-  
-    if success
-      p.alert.alert-success Question submitted successfully!
-    if error
-      p.alert.alert-danger= error
-  
-    form(method='POST', action='/submit-question')
-      div.form-group
-        label(for='question') Question:
-        input#question.form-control(type='text', name='question', required)
-  
-      div.form-group
-        label Options:
-        each val, index in [1, 2, 3, 4]
-          input.form-control(type='text', name='options', placeholder='Option ' + index, required)
-  
-      div.form-group
-        label(for='answer') Correct Answer:
-        input#answer.form-control(type='text', name='answer', placeholder='Must match one of the options provided above.', required)
-  
-      button.btn.btn-primary(type='submit') Submit Question
+  h1 Submit a New Trivia Question
+  p Fill out the form below to add a trivia question.
+
+  if success
+    p.alert.alert-success Question submitted successfully!
+  if error
+    p.alert.alert-danger= error
+
+  form(method='POST' action='/submit-question')
+    .form-group
+      label(for='question') Question:
+      input#question.form-control(type='text', name='question', required)
+
+    .form-group
+      label(for='option1') Option 1:
+      input#option1.form-control(type='text', name='options[]', required)
+
+    .form-group
+      label(for='option2') Option 2:
+      input#option2.form-control(type='text', name='options[]', required)
+
+    .form-group
+      label(for='option3') Option 3:
+      input#option3.form-control(type='text', name='options[]', required)
+
+    .form-group
+      label(for='option4') Option 4:
+      input#option4.form-control(type='text', name='options[]', required)
+
+    .form-group
+      label(for='answer') Correct Answer:
+      input#answer.form-control(type='text', name='answer', required)
+
+    button.btn.btn-primary(type='submit') Submit Question
+
+

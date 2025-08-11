@@ -87,6 +87,10 @@ nav {
   background-image: url('../images/nav/users_nav.png');
 }
 
+#question-button {
+  background-image: url('../images/nav/questions_nav.png');
+}
+
 .nav-image-button:hover {
   opacity: 0.8;
   transform: scale(1.1);

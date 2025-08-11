@@ -57,64 +57,82 @@ router.post('/submit-score', async (req, res) => {
 });
 
 
+
+
 // Show the form
-router.get('/submit-question', (req, res) => {
-  res.render('submit-question');
-});
+// router.get('/submit-question', (req, res) => {
+//   res.render('/');
+// });
+
+
 
 // Handle form submission
+// router.post('/submit-question', async (req, res) => {
+//   const { question, options, answer } = req.body;
+
+//   console.log(req.body);
+
+//   try {
+//     const formattedOptions = Array.isArray(options) ? options : [options];
+
+//     if (!formattedOptions.includes(answer)) {
+//       return res.render('submit-question', {
+//         error: 'Answer must match one of the provided options.',
+//       });
+//     }
+
+//     const questionDoc = {
+//       question,
+//       options: formattedOptions,
+//       answer
+//     };
+
+//     await db.addUserQuestion(questionDoc);
+//     res.render('submit-question', { success: true });
+//     // res.json(questionDoc);
+//   } catch (err) {
+//     console.error(err);
+//     res.render('submit-question', { error: 'Failed to submit question.' });
+//   }
+// });
+
+// POST route to handle form submission
 router.post('/submit-question', async (req, res) => {
-  const { question, options, answer } = req.body;
-
-  console.log(req.body);
-
   try {
-    const formattedOptions = Array.isArray(options) ? options : [options];
+    const { question, options, answer } = req.body;
+    console.log(req.body);
 
-    if (!formattedOptions.includes(answer)) {
-      return res.render('submit-question', {
-        error: 'Answer must match one of the provided options.',
+
+    if (!question || !options || !answer) {
+      return res.status(400).render('submit-question', {
+        error: 'All fields are required.',
+        success: false
       });
     }
 
-    const questionDoc = {
-      question,
-      options: formattedOptions,
-      answer
-      // submittedBy: req.session?.user?.username || 'anonymous',
-      // submittedAt: new Date()
+    const newQuestion = {
+      question: question.trim(),
+      options: Array.isArray(options) ? options.map(opt => opt.trim()) : [options.trim()],
+      answer: answer.trim()
     };
 
-    await db.addUserQuestion(questionDoc);
-    res.render('submit-question', { success: true });
+    await req.db.add(newQuestion)
+    await req.app.locals.db.collection('questions').insertOne(newQuestion);
+
+    // Redirect to home page after successful insert
+    res.redirect('/');
+
   } catch (err) {
-    console.error(err);
-    res.render('submit-question', { error: 'Failed to submit question.' });
+    console.error('Error inserting question:', err);
+    res.status(500).render('submit-question', {
+      error: 'An error occurred while submitting the question.',
+      success: false
+    });
   }
 });
 
 
 
-
-// router.post('/submit-score', express.json(), async function (req, res) {
-//   const { username, score } = req.body;
-
-//   if (!username || typeof score !== 'number') {
-//     return res.status(400).json({ message: 'Invalid data' });
-//   }
-
-//   try {
-//     const insertedId = await db.saveScore(username, score);
-//     res.status(200).json({ 
-//       message: 'Score saved', 
-//       id: insertedId,
-//       redirectUrl: `/score?score=${score}`
-//     });
-//   } catch (err) {
-//     console.error('Error saving score:', err);
-//     res.status(500).json({ message: 'Failed to save score' });
-//   }
-// });
 
 
 

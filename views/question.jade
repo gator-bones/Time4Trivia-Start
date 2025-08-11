@@ -1,28 +1,76 @@
+//- extends layout
+
+//- block content
+//-   h1 Submit a New Trivia Question
+//-   p Manage Questions
+//-   p You are now viewing the question page.
+
+//-   if success
+//-     p.alert.alert-success Question submitted successfully!
+//-   if error
+//-     p.alert.alert-danger= error
+
+//-   form(method='POST', action='/submit-question')
+//-     div.form-group
+//-       label(for='question') Question:
+//-       input#question.form-control(type='text', name='question', required)
+
+//-     div.form-group
+//-       label Options:
+//-       each val, index in [0, 1, 2, 3]
+//-         input.form-control(
+//-           type='text',
+//-           name=`options[${index}]`,
+//-           placeholder='Option ' + (index + 1),
+//-           required
+//-         )
+
+//-     div.form-group
+//-       label(for='answer') Correct Answer:
+//-       input#answer.form-control(
+//-         type='text',
+//-         name='answer',
+//-         placeholder='Must match one of the options',
+//-         required
+//-       )
+
+//-     button.btn.btn-primary(type='submit') Submit Question
+
+
 extends layout
 
 block content
   h1 Submit a New Trivia Question
-  p Manage Questions
-  p You are now viewing the question page.
+  p Fill out the form below to add a trivia question.
 
   if success
     p.alert.alert-success Question submitted successfully!
   if error
     p.alert.alert-danger= error
 
-  form(method='POST', action='/submit-question')
-    div.form-group
+  form(method='POST' action='/submit-question')
+    .form-group
       label(for='question') Question:
       input#question.form-control(type='text', name='question', required)
 
-    div.form-group
-      label(for='options') Options:
-      each val, index in [0, 1, 2, 3]
-        input.form-control(type='text', name='options', placeholder='Option ' + (index + 1), required)
-        //- input.form-control(type='text', name='options', placeholder='Option ' + index, required)
+    .form-group
+      label(for='option1') Option 1:
+      input#option1.form-control(type='text', name='options[]', required)
 
-    div.form-group
+    .form-group
+      label(for='option2') Option 2:
+      input#option2.form-control(type='text', name='options[]', required)
+
+    .form-group
+      label(for='option3') Option 3:
+      input#option3.form-control(type='text', name='options[]', required)
+
+    .form-group
+      label(for='option4') Option 4:
+      input#option4.form-control(type='text', name='options[]', required)
+
+    .form-group
       label(for='answer') Correct Answer:
-      input#answer.form-control(type='text', name='answer', placeholder='Must match one of the options', required)
+      input#answer.form-control(type='text', name='answer', required)
 
     button.btn.btn-primary(type='submit') Submit Question

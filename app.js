@@ -20,18 +20,17 @@ const questionRouter = require('./routes/question');
 var app = express();
 
 app.use(session(sessionConfig));
-app.use(express.json());
-app.use(gameRouter);
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.set('views', './views');
-
-
-app.use(logger('dev'));
+// ✅ Put both body parsers here before ANY routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// View setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// Logging, cookies, static
+app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

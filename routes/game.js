@@ -56,47 +56,6 @@ router.post('/submit-score', async (req, res) => {
   }
 });
 
-
-
-
-// Show the form
-// router.get('/submit-question', (req, res) => {
-//   res.render('/');
-// });
-
-
-
-// Handle form submission
-// router.post('/submit-question', async (req, res) => {
-//   const { question, options, answer } = req.body;
-
-//   console.log(req.body);
-
-//   try {
-//     const formattedOptions = Array.isArray(options) ? options : [options];
-
-//     if (!formattedOptions.includes(answer)) {
-//       return res.render('submit-question', {
-//         error: 'Answer must match one of the provided options.',
-//       });
-//     }
-
-//     const questionDoc = {
-//       question,
-//       options: formattedOptions,
-//       answer
-//     };
-
-//     await db.addUserQuestion(questionDoc);
-//     res.render('submit-question', { success: true });
-//     // res.json(questionDoc);
-//   } catch (err) {
-//     console.error(err);
-//     res.render('submit-question', { error: 'Failed to submit question.' });
-//   }
-// });
-
-// POST route to handle form submission
 router.post('/submit-question', async (req, res) => {
   try {
     const { question, options, answer } = req.body;

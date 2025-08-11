@@ -15,21 +15,21 @@ var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var gameRouter = require('./routes/game');
 const questionRouter = require('./routes/question');
-// var questionRouter = require('./routes/question');
+
 
 var app = express();
 
 app.use(session(sessionConfig));
 
-// ✅ Put both body parsers here before ANY routes
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// View setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// Logging, cookies, static
+
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,20 +39,17 @@ app.use('/u', usersRouter);
 app.use('/a', adminRouter);
 app.use('/g', gameRouter);
 app.use('/', questionRouter);
-// app.use('/q', questionRouter);
-
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  
   res.status(err.status || 500);
   res.render('error');
 });

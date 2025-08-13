@@ -8,7 +8,7 @@ const mysql = require('mysql2/promise');
 const sqlConfig = {
     host: 'localhost',
     user: 'root',
-    password: 'Vampirebites21', //Vampirebites21
+    password: '306879', //Vampirebites21
     database: 'Time4Trivia',
     multipleStatements: true
 };

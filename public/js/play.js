@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const result = await response.json();
-                console.log('Server response:', result); // Add this
+                console.log('Server response:', result); 
 
                 if (!response.ok) {
                     throw new Error(result.error || 'Failed to save score');

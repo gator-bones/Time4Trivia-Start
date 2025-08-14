@@ -8,7 +8,7 @@ const mysql = require('mysql2/promise');
 const sqlConfig = {
     host: 'localhost',
     user: 'root',
-    password: 'Vampirebites21', //Vampirebites21
+    password: 'Vampirebites21', 
     database: 'Time4Trivia',
     multipleStatements: true
 };
@@ -427,6 +427,42 @@ exports.disableUser = async function (userId) {
         result.message = err.message;
     } finally {
         con.end();
+    }
+
+    return result;
+}
+
+/**
+ * 
+ * @param {*} userId 
+ * @param {*} score 
+ * @returns a result object with status/message
+ **/
+
+exports.saveResult = async function (userId, score) {
+    let result = new Result();
+
+    const con = await mysql.createConnection(sqlConfig);
+
+    try {
+
+        let sql = `insert into Scores (UserId, Score, Timestamp) values (?, ?, NOW())`;
+
+        const [insertResult] = await con.query(sql, [userId, score]);
+
+        if (insertResult.affectedRows === 1) {
+            result.status = STATUS_CODES.success;
+            result.message = 'Score of ${score} saved successfully for user ${userId}'
+        } else {
+            result.status = STATUS_CODES.failure;
+            result.message = 'Failed to save score for user ${userId}'
+        }
+    } catch (err) {
+        console.log(err);
+        result.status = STATUS_CODES.failure;
+        result.message = err.message;
+    } finally {
+        await con.end();
     }
 
     return result;

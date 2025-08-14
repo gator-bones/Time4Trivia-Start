@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log(score)
             try {
-                const response = await fetch('/submit-score', {
+                const response = await fetch('/submit-score', { 
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const result = await response.json();
-                console.log('Server response:', result); 
+                console.log('Server response:', result);
 
                 if (!response.ok) {
                     throw new Error(result.error || 'Failed to save score');

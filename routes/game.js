@@ -56,6 +56,40 @@ router.post('/submit-score', async (req, res) => {
   }
 });
 
+
+// router.post('/submit-score', async (req, res) => {
+//   console.log('Submit score route hit!'); // Debug log
+//   const sqlConfig = {
+//     host: 'localhost',
+//     user: 'root',
+//     password: '306879',
+//     database: 'Time4Trivia',
+//     multipleStatements: true
+//   };
+
+//   const { score } = req.body;
+//   const username = req.session?.user?.username;
+
+//   console.log('Incoming score:', score);
+//   console.log('Session username:', username);
+
+//   if (!username) {
+//     return res.status(401).json({ error: 'User not logged in' });
+//   }
+
+//   try {
+//     const connection = await mysql2.createConnection(sqlConfig);
+//     const query = `INSERT INTO scores (username, score) VALUES (?, ?)`; // ✅ Use correct table name
+//     await connection.execute(query, [username, score]);
+//     await connection.end();
+
+//     res.json({ success: true, redirectUrl: '/score' });
+//   } catch (err) {
+//     console.error('Database error:', err.message);
+//     res.status(500).json({ error: 'Failed to save score', details: err.message });
+//   }
+// });
+
 router.post('/submit-question', async (req, res) => {
   try {
     const { question, options, answer } = req.body;

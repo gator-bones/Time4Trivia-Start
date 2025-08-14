@@ -115,10 +115,6 @@ router.post('/submit-question', async (req, res) => {
 });
 
 
-
-
-
-
 // Score display route
 router.get('/score', function (req, res) {
   const score = parseInt(req.query.score) || 0;

@@ -4,6 +4,8 @@ block content
   if user
     if isAdmin && isAdmin == "true"
       link(rel='stylesheet', href='/css/admin_home.css')
+      h3 don't go to guam 
+
     else
       link(rel='stylesheet', href='/css/user_home.css')
       div.user-home-cutesy-box
@@ -11,7 +13,7 @@ block content
         p Welcome, #[span.highlight-user #{user.username}]!
         p Explore our site and have fun!
         p Wanna enter your own question?
-       a.button(href="/question") Enter your own!
+        a.button(href="/question") Enter your own!
         div.advertisement
           h3 Check Out This Awesome Product!
           p Get 20% off with code "GUAMHATE"!

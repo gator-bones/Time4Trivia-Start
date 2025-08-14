@@ -95,26 +95,75 @@ router.post('/submit-question', async (req, res) => {
 
 
 
+// router.post('/submit-score', async (req, res) => {
+//   console.log('Submit score route hit!'); // Debug log
+//   const sqlConfig = {
+//     host: 'localhost',
+//     user: 'root',
+//     password: '306879',
+//     database: 'Time4Trivia',
+//     multipleStatements: true
+//   };
 
-// router.post('/submit-score', express.json(), async function (req, res) {
-//   const { username, score } = req.body;
+//   const { score } = req.body;
+//   const username = req.session?.user?.username;
 
-//   if (!username || typeof score !== 'number') {
-//     return res.status(400).json({ message: 'Invalid data' });
+//   console.log('Incoming score:', score);
+//   console.log('Session username:', username);
+
+//   if (!username) {
+//     return res.status(401).json({ error: 'User not logged in' });
 //   }
 
 //   try {
-//     const insertedId = await db.saveScore(username, score);
-//     res.status(200).json({ 
-//       message: 'Score saved', 
-//       id: insertedId,
-//       redirectUrl: `/score?score=${score}`
-//     });
+//     const connection = await mysql2.createConnection(sqlConfig);
+//     const query = `INSERT INTO scores (username, score) VALUES (?, ?)`; // ✅ Use correct table name
+//     await connection.execute(query, [username, score]);
+//     await connection.end();
+
+//     res.json({ success: true, redirectUrl: '/score' });
 //   } catch (err) {
-//     console.error('Error saving score:', err);
-//     res.status(500).json({ message: 'Failed to save score' });
+//     console.error('Database error:', err.message);
+//     res.status(500).json({ error: 'Failed to save score', details: err.message });
 //   }
 // });
+
+router.post('/submit-question', async (req, res) => {
+  try {
+    const { question, options, answer } = req.body;
+    console.log(req.body);
+
+
+    if (!question || !options || !answer) {
+      return res.status(400).render('submit-question', {
+        error: 'All fields are required.',
+        success: false
+      });
+    }
+
+    const newQuestion = {
+      question: question.trim(),
+      options: Array.isArray(options) ? options.map(opt => opt.trim()) : [options.trim()],
+      answer: answer.trim()
+    };
+
+    await req.db.add(newQuestion)
+    await req.app.locals.db.collection('questions').insertOne(newQuestion);
+
+    // Redirect to home page after successful insert
+    res.redirect('/');
+
+  } catch (err) {
+    console.error('Error inserting question:', err);
+    res.status(500).render('submit-question', {
+      error: 'An error occurred while submitting the question.',
+      success: false
+    });
+  }
+});
+
+
+
 
 
 

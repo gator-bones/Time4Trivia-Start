@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2/promise');
+const db = require('../data/mongoDAL.js');
 
 // MySQL config
 const sqlConfig = {

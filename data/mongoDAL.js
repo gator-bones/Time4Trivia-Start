@@ -33,6 +33,7 @@ module.exports = {
         .limit(10)
         .toArray()
     ),
+    addUserQuestion,
 
   saveScore: async (username, score) =>
     withDB(async db => {
@@ -43,5 +44,4 @@ module.exports = {
       });
       return result.insertedId;
     }),
-     addUserQuestion,
 };

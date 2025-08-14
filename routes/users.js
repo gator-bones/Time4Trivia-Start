@@ -28,21 +28,7 @@ router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Time 4 Trivia', error: '' });
 });
 
-// router.post('/login', async function (req, res, next) {
-//   // Need to get the posted username and password
-//   let username = req.body.username;
-//   let password = req.body.password;
 
-//   let result = await userController.login(username, password);
-
-//   if (result?.status == STATUS_CODES.success) {
-//     res.cookie('isAdmin', result.data.roles.includes("admin"));
-//     req.session.user = { userId: result.data.userId, username: result.data.username };
-//     res.redirect('/');
-//   } else {
-//     res.render('login', { title: 'Time 4 Trivia', error: 'Invalid Login. Please try again.' })
-//   }
-// });
 
 router.post('/login', async function (req, res, next) {
   const username = req.body.username;

@@ -8,7 +8,7 @@ const mysql = require('mysql2/promise');
 const sqlConfig = {
     host: 'localhost',
     user: 'root',
-    password: '306879',
+    password: '306879', //Vampirebites21
     database: 'Time4Trivia',
     multipleStatements: true
 };
@@ -44,7 +44,7 @@ exports.getAllUsers = async function () {
                 let role = roleResults[key];
                 roles.push(role.Role);
             }
-            users.push(new User(u.UserId, u.Username, u.Email, u.Password, roles));
+            users.push(new User(u.UserId, u.Username, u.Email, u.Password, roles, u.is_enabled));
         }
     } catch (err) {
         console.log(err);
@@ -86,7 +86,7 @@ exports.getAllUsers = async function () {
                 let role = roleResults[key];
                 roles.push(role.Role);
             }
-            user = new User(u.UserId, u.Username, u.Email, u.Password, roles);
+            user = new User(u.UserId, u.Username, u.Email, u.Password, roles, u.is_enabled);
             console.log(user)
             users.push(user);
         }
@@ -130,7 +130,7 @@ exports.getAllUsers = async function () {
                 let role = roleResults[key];
                 roles.push(role.Role);
             }
-            user = new User(u.UserId, u.Username, u.Email, u.Password, roles);
+            user = new User(u.UserId, u.Username, u.Email, u.Password, roles, u.is_enabled);
             console.log(user)
             users.push(user);
         }
@@ -169,7 +169,7 @@ exports.getUserById = async function (userId) {
                 let role = roleResults[key];
                 roles.push(role.Role);
             }
-            user = new User(u.UserId, u.Username, u.Email, u.Password, roles);
+            user = new User(u.UserId, u.Username, u.Email, u.Password, roles, u.is_enabled);
         }
     } catch (err) {
         console.log(err);
@@ -263,39 +263,40 @@ exports.demoteUser = async function (userId) {
  * @param {*} username the username of the user to find
  * @returns a User model or null if not found
  */
+
+// Add the getUserRoles helper function here or ensure it's defined elsewhere in sqlDAL.js
+async function getUserRoles(con, userId) {
+    const sql = `SELECT R.Role FROM UserRoles UR JOIN Roles R ON UR.RoleId = R.RoleId WHERE UR.UserId = ?`;
+    const [roleResults] = await con.query(sql, [userId]);
+    return roleResults.map(role => role.Role);
+}
+
 exports.getUserByUsername = async function (username) {
     let user = null;
-
-    const con = await mysql.createConnection(sqlConfig);
+    const con = await mysql.createConnection(sqlConfig); // Create connection for this function
 
     try {
-        let sql = `select * from Users where Username = '${username}'`;
-        console.log(sql);
-        
-        const [userResults, ] = await con.query(sql);
+        let sql = `SELECT UserId, Username, Email, Password, is_enabled FROM Users WHERE Username = ?`;
+        console.log(`Executing SQL: ${sql} with username: ${username}`); 
 
-        for(key in userResults){
-            let u = userResults[key];
+        const [userResults] = await con.query(sql, [username]);
 
-            let sql = `select UserId, Role from UserRoles ur join Roles r on ur.roleid = r.roleid where ur.UserId = ${u.UserId}`;
-            console.log(sql);
-            const [roleResults, ] = await con.query(sql);
+        if (userResults.length > 0) {
+            const u = userResults[0]; 
 
-            let roles = [];
-            for(key in roleResults){
-                let role = roleResults[key];
-                roles.push(role.Role);
-            }
-            user = new User(u.UserId, u.Username, u.Email, u.Password, roles);
+            const roles = await getUserRoles(con, u.UserId);
+
+            user = new User(u.UserId, u.Username, u.Email, u.Password, roles, u.is_enabled);
         }
     } catch (err) {
-        console.log(err);
-    }finally{
-        con.end();
+        console.error("Error in getUserByUsername:", err); 
+        
+    } finally {
+        await con.end(); 
     }
 
     return user;
-}
+};
 
 /**
  * @param {*} userId the userId of the user to find roles for
@@ -385,4 +386,48 @@ exports.updateUserPassword = async function (userId, hashedPassword) {
         result.message = err.message;
         return result;
     }
+}
+
+exports.enableUser = async function (userId) {
+    let result = new Result();
+
+    const con = await mysql.createConnection(sqlConfig);
+
+    try {
+        let sql = `UPDATE Users SET is_enabled = 1 WHERE UserId = ?`;
+        await con.query(sql, [userId]);
+
+        result.status = STATUS_CODES.success;
+        result.message = `User ${userId} enabled!`;
+    } catch (err) {
+        console.log(err);
+        result.status = STATUS_CODES.failure;
+        result.message = err.message;
+    } finally {
+        con.end();
+    }
+
+    return result;
+}
+
+exports.disableUser = async function (userId) {
+    let result = new Result();
+
+    const con = await mysql.createConnection(sqlConfig);
+
+    try {
+        let sql = `UPDATE Users SET is_enabled = 0 WHERE UserId = ?`;
+        await con.query(sql, [userId]);
+
+        result.status = STATUS_CODES.success;
+        result.message = `User ${userId} disabled!`;
+    } catch (err) {
+        console.log(err);
+        result.status = STATUS_CODES.failure;
+        result.message = err.message;
+    } finally {
+        con.end();
+    }
+
+    return result;
 }

@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../data/mongoDAL.js');
 const mysql = require('../data/sqlDAL.js')
 const mysql2 = require('mysql2/promise')
+const { STATUS_CODES } = require('../models/statusCodes');
 
 // Play route - renders the trivia game page
 router.get('/play', async function (req, res) {
@@ -15,7 +16,7 @@ router.get('/play', async function (req, res) {
       user: req.session?.user || null,
       isAdmin: req.cookies?.isAdmin || false,
       questions,
-      questionsJSON: JSON.stringify(questions), // Stringified for client-side use
+      questionsJSON: JSON.stringify(questions), 
       username: req.session?.user?.username || ''
     });
   } catch (err) {
@@ -25,59 +26,32 @@ router.get('/play', async function (req, res) {
 });
 
 router.post('/submit-score', async (req, res) => {
-const userId = req.session?.user?.UserId;
-  const { score } = req.body;
+    // Correctly retrieve the username from the session
+    const username = req.session?.user?.username; 
+    const { score } = req.body;
 
-  if (!userId) {
-    return res.status(401).json({ error: 'User not logged in' });
-  }
-  if (typeof score === 'undefined' || isNaN(score)) {
-    return res.status(400).json({ error: 'Invalid score' });
-  }
-
-  try { 
-    const saveResult = await mysql.saveResult(userId, score);
-    if (saveResult.status === 200) {
-      res.status(200).json({
-        success: true,
-        redirectUrl: `/score?score=${score}`
-      });
-    } else {
-      res.status(500).json({ error: saveResult.message });
+    if (!username) {
+        return res.status(401).json({ error: 'User not logged in' });
     }
-  } catch (err) {
-    console.error('error saving score', err.message);
-    res.status(500).json({ error: 'Failed to save score', details: err.message });
-  }
-  // const sqlConfig = {
-  //   host: 'localhost',
-  //   user: 'root',
-  //   password: '306879',
-  //   database: 'Time4Trivia',
-  //   multipleStatements: true
-  // };
+    if (typeof score === 'undefined' || isNaN(score)) {
+        return res.status(400).json({ error: 'Invalid score' });
+    }
 
-  // const { score } = req.body;
-  // const username = req.session?.user?.username;
-
-  // console.log('Incoming score:', score);
-  // console.log('Session username:', username);
-
-  // if (!username) {
-  //   return res.status(401).json({ error: 'User not logged in' });
-  // }
-
-  // try {
-  //   const connection = await mysql2.createConnection(sqlConfig);
-  //   const query = `INSERT INTO scores (username, score) VALUES (?, ?)`; // ✅ Use correct table name
-  //   await connection.execute(query, [username, score]);
-  //   await connection.end();
-
-  //   res.json({ success: true, redirectUrl: '/score' });
-  // } catch (err) {
-  //   console.error('Database error:', err.message);
-  //   res.status(500).json({ error: 'Failed to save score', details: err.message });
-  // }
+    try { 
+        // Pass the username to the database function
+        const saveResult = await mysql.saveResult(username, score);
+        if (saveResult.status === 200) {
+            res.status(200).json({
+                success: true,
+                redirectUrl: `/score?score=${score}`
+            });
+        } else {
+            res.status(500).json({ error: saveResult.message });
+        }
+    } catch (err) {
+        console.error('error saving score', err.message);
+        res.status(500).json({ error: 'Failed to save score', details: err.message });
+    }
 });
 
 router.post('/submit-question', async (req, res) => {

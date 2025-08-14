@@ -439,20 +439,22 @@ exports.disableUser = async function (userId) {
  * @returns a result object with status/message
  **/
 
-exports.saveResult = async function (userId, score) {
+exports.saveResult = async function (username, score) {
     let result = new Result();
     const con = await mysql.createConnection(sqlConfig);
 
     try {
-        let sql = `INSERT INTO Scores (UserId, Score, Timestamp) VALUES (?, ?, NOW())`;
-        const [insertResult] = await con.query(sql, [userId, score]);
+        let sql = `INSERT INTO scores (username, score, created_at) VALUES (?, ?, NOW())`;
+
+        // The values array now passes the username and score
+        const [insertResult] = await con.query(sql, [username, score]);
 
         if (insertResult.affectedRows === 1) {
             result.status = STATUS_CODES.success;
-            result.message = `Score of ${score} saved successfully for user ${userId}`;
+            result.message = `Score of ${score} saved successfully for user ${username}`;
         } else {
             result.status = STATUS_CODES.failure;
-            result.message = `Failed to save score for user ${userId}`;
+            result.message = `Failed to save score for user ${username}`;
         }
     } catch (err) {
         console.error("Error saving result:", err);

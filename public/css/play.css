@@ -113,3 +113,23 @@ hr {
   border-radius: 10px;
   margin-top: 20px;
 }
+
+.submit-quiz-button {
+  display: block;
+  margin: 30px auto 20px auto;
+  padding: 15px 30px;
+  background-color: #7B68EE;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-quiz-button:hover {
+  background-color: #6A5ACD;
+  transform: translateY(-2px);
+}
